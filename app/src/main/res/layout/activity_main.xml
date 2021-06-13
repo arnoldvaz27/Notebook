@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+
+    <LinearLayout
+        android:id="@+id/my_linear_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="10dp"
+        tools:ignore="UseCompoundDrawables">
+
+        <ImageView
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@drawable/more_menu"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="5dp"
+            android:padding="5dp"
+            android:id="@+id/image1"
+            android:contentDescription="@string/todo"
+            />
+
+        <ImageView
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@drawable/events"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="5dp"
+            android:padding="5dp"
+            android:id="@+id/image2"
+            android:contentDescription="@string/todo"
+            />
+
+        <ImageView
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@drawable/open_note"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="5dp"
+            android:padding="5dp"
+            android:id="@+id/image3"
+            android:contentDescription="@string/todo"
+            />
+        <ImageView
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@drawable/closed_note"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="5dp"
+            android:padding="5dp"
+            android:id="@+id/image4"
+            android:contentDescription="@string/todo"
+            />
+        <ImageView
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@drawable/teacherpreviouscorrect"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="5dp"
+            android:padding="5dp"
+            android:id="@+id/image5"
+            android:contentDescription="@string/todo" />
+
+    </LinearLayout>
+
+    <View
+        android:id="@+id/view"
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:layout_marginTop="10dp"
+        android:background="@color/color3"
+        android:layout_below="@id/my_linear_layout"
+        />
+
+    <TextView
+        android:id="@+id/noteSee"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/black"
+        android:inputType="text"
+        android:textSize="15sp"
+        android:padding="12dp"
+        android:layout_below="@id/view"
+        tools:ignore="TextViewEdits" />
+
+    <ScrollView
+        android:id="@+id/my_scroll_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/noteSee"
+        >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+
+
+            <EditText
+                android:id="@+id/noteText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/white"
+                android:minLines="1"
+                android:inputType="textMultiLine|textCapSentences"
+                android:visibility="invisible"
+                android:hint="@string/type_your_note_here"
+                android:textSize="16sp"
+                android:padding="15dp"
+                android:background="@color/color3"
+                android:importantForAutofill="no" />
+        </LinearLayout>
+
+
+
+    </ScrollView>
+
+</RelativeLayout>

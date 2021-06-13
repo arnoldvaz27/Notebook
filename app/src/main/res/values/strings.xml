@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">Notebook</string>
+    <string name="camera">Camera</string>
+    <string name="todo">TODO</string>
+    <string name="type_your_note_here">Type Your Note Here</string>
+    <string name="info">Info</string>
+    <string name="process">process</string>
+    <string name="save_as_pdf">Save as pdf</string>
+</resources>
