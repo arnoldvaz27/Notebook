@@ -1,4 +1,4 @@
-package com.example.differentandroidcodes;
+package com.example.notebook;
 
 import org.junit.Test;
 
