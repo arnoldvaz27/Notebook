@@ -1,4 +1,4 @@
-package com.example.notebook;
+package com.arnoldvaz27.notebook;
 
 import android.content.Context;
 

@@ -1,4 +1,4 @@
-package com.example.notebook;
+package com.arnoldvaz27.notebook;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
@@ -37,9 +37,9 @@ import java.io.OutputStream;
 import java.util.Calendar;
 
 @SuppressLint("SetTextI18n")
-public class MainActivity extends AppCompatActivity{
+public class MainActivity extends AppCompatActivity {
 
-    private ImageView menuOne,menuTwo,menuThree,menuFour,menuFive;
+    private ImageView menuOne, menuTwo, menuThree, menuFour, menuFive;
     private EditText fullNote;
     private TextView See;
 
@@ -88,10 +88,9 @@ public class MainActivity extends AppCompatActivity{
             menuFour.setVisibility(View.VISIBLE);
             menuOne.setVisibility(View.VISIBLE);
             fullNote.setVisibility(View.VISIBLE);
-            SharedPreferences getShared = getSharedPreferences("My_Note",MODE_PRIVATE);
-            value = getShared.getString(AppData.MyNote,null);
-            if(value!=null)
-            {
+            SharedPreferences getShared = getSharedPreferences("My_Note", MODE_PRIVATE);
+            value = getShared.getString(AppData.MyNote, null);
+            if (value != null) {
                 fullNote.setText(value);
                 fullNote.setSelection(fullNote.getText().length());
             }
@@ -102,15 +101,12 @@ public class MainActivity extends AppCompatActivity{
 
         menuFive.setOnClickListener(v -> {
             menuThree.setVisibility(View.GONE);
-            if(TextUtils.isEmpty(fullNote.getText().toString()))
-            {
+            if (TextUtils.isEmpty(fullNote.getText().toString())) {
                 Toast.makeText(MainActivity.this, "You Need Write Something in order to save", Toast.LENGTH_SHORT).show();
-            }
-            else
-            {
-                SharedPreferences shard = getSharedPreferences("My_Note",MODE_PRIVATE);
+            } else {
+                SharedPreferences shard = getSharedPreferences("My_Note", MODE_PRIVATE);
                 final SharedPreferences.Editor editor = shard.edit();
-                editor.putString(AppData.MyNote,fullNote.getText().toString());
+                editor.putString(AppData.MyNote, fullNote.getText().toString());
                 editor.apply();
                 Toast.makeText(MainActivity.this, "Saved", Toast.LENGTH_SHORT).show();
             }
@@ -123,10 +119,10 @@ public class MainActivity extends AppCompatActivity{
             fullNote.setVisibility(View.GONE);
             menuOne.setVisibility(View.GONE);
             fullNote.setVisibility(View.GONE);
-            SharedPreferences shard = getSharedPreferences("My_Note",MODE_PRIVATE);
+            SharedPreferences shard = getSharedPreferences("My_Note", MODE_PRIVATE);
             final SharedPreferences.Editor editor = shard.edit();
             AppData.MyNote = "";
-            editor.putString(AppData.MyNote,null);
+            editor.putString(AppData.MyNote, null);
             editor.apply();
             fullNote.setText("");
             See.setText("");
@@ -136,22 +132,16 @@ public class MainActivity extends AppCompatActivity{
 
     }
 
-    private void SaveFile() throws Exception{
+    private void SaveFile() throws Exception {
 
-        if(AppData.MyNote==null)
-        {
+        if (AppData.MyNote == null) {
             Toast.makeText(MainActivity.this, "You have to give file name", Toast.LENGTH_SHORT).show();
-        }
-        else
-        {
+        } else {
             String fileName = AppData.MyNote;
-            fileName = fileName.replaceAll("/","-");
-            if(TextUtils.isEmpty(fullNote.getText().toString()))
-            {
+            fileName = fileName.replaceAll("/", "-");
+            if (TextUtils.isEmpty(fullNote.getText().toString())) {
                 Toast.makeText(MainActivity.this, "File Could not be stored as it is empty", Toast.LENGTH_SHORT).show();
-            }
-            else
-            {
+            } else {
                 String text = fullNote.getText().toString();
 
                 int hasWriteStoragePermission = ActivityCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE);
@@ -165,21 +155,25 @@ public class MainActivity extends AppCompatActivity{
                     }
                 } else {
                     Toast.makeText(this, "PDF copy has been saved to this device successfully", Toast.LENGTH_LONG).show();
-                    File docsFolder = new File(Environment.getExternalStorageDirectory() + "/Notebook/");
+                    File docsFolder = new File(Environment.getExternalStorageDirectory() + File.separator + "Notebook" + File.separator);
+                    boolean success = true;
                     if (!docsFolder.exists()) {
-                        docsFolder.mkdir();
+                        success = docsFolder.mkdirs();
                     }
-                    File pdfFile = new File(docsFolder.getAbsolutePath(), fileName + ".pdf");
-                    OutputStream outputStream = new FileOutputStream(pdfFile);
-                    Document document = new Document();
-                    PdfWriter.getInstance(document, outputStream);
-                    document.open();
+                    if (success) {
 
-                    Font f = new Font(Font.FontFamily.TIMES_ROMAN, 16f, Font.NORMAL, BaseColor.BLACK);
-                    document.add(new Paragraph(text, f));
+                        File pdfFile = new File(docsFolder.getAbsolutePath(), fileName + ".pdf");
+                        OutputStream outputStream = new FileOutputStream(pdfFile);
+                        Document document = new Document();
+                        PdfWriter.getInstance(document, outputStream);
+                        document.open();
+
+                        Font f = new Font(Font.FontFamily.TIMES_ROMAN, 16f, Font.NORMAL, BaseColor.BLACK);
+                        document.add(new Paragraph(text, f));
 
 
-                    document.close();
+                        document.close();
+                    }
                 }
 
             }
@@ -221,17 +215,17 @@ public class MainActivity extends AppCompatActivity{
             DatePickerDialog datePickerDialog = new DatePickerDialog(this,
                     (view, year, monthOfYear, dayOfMonth) -> {
 
-                        AppData.MyNote =(dayOfMonth + "/" + (monthOfYear + 1) + "/" + year);
+                        AppData.MyNote = (dayOfMonth + "/" + (monthOfYear + 1) + "/" + year);
                         See.setText(AppData.MyNote);
                         menuTwo.setVisibility(View.GONE);
 
                         menuThree.setVisibility(View.VISIBLE);
-                        int yearChange  = year - 2000;
-                        int monthChange = monthOfYear+1;
+                        int yearChange = year - 2000;
+                        int monthChange = monthOfYear + 1;
                         String yearLocally = Integer.toString(yearChange);
                         String monthLocally = Integer.toString(monthChange);
                         String dayLocally = Integer.toString(dayOfMonth);
-                        AppData.Date = (yearLocally+monthLocally+dayLocally);
+                        AppData.Date = (yearLocally + monthLocally + dayLocally);
 
                     }, mYear, mMonth, mDay);
             datePickerDialog.show();
@@ -242,8 +236,7 @@ public class MainActivity extends AppCompatActivity{
     public boolean onCreateOptionsMenu(Menu menu) {
         super.onCreateOptionsMenu(menu);
 
-        getMenuInflater().inflate(R.menu.info,menu);
-
+        getMenuInflater().inflate(R.menu.info, menu);
 
 
         return true;
@@ -263,13 +256,13 @@ public class MainActivity extends AppCompatActivity{
     }
 
     private void Info() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this,R.style.AlertDialog);
+        AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this, R.style.AlertDialog);
         builder.setTitle("Important Note");
         builder.setCancelable(false);
 
         final TextView groupNameField = new TextView(MainActivity.this);
         groupNameField.setText("1) You need to follow the steps in order to use your notebook efficiently, Steps are provided in the process icon just next to the info icon. \n\n2) You cannot open other date's notebook before closing the current notebook. \n\n3) If You wish to not save your content then you can directly close your book. \n\n4) If there is no content in the date's notebook it will tell u to write your note");
-        groupNameField.setPadding(20,30,20,20);
+        groupNameField.setPadding(20, 30, 20, 20);
         groupNameField.setTextColor(Color.BLACK);
 
         groupNameField.setBackgroundColor(Color.WHITE);
@@ -281,7 +274,7 @@ public class MainActivity extends AppCompatActivity{
     }
 
     private void CheckRightOrWrong() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this,R.style.AlertDialog);
+        AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this, R.style.AlertDialog);
         builder.setTitle("Steps To Follow to Save Your Work");
         builder.setCancelable(false);
 
@@ -291,7 +284,7 @@ public class MainActivity extends AppCompatActivity{
                 "3) Write Your Note where the cursor is blinking \n\n" +
                 "4) After writing you need to click on the right icon in order to save your note \n\n" +
                 "5) After Saving Your note you can close your notebook by clicking on the close book icon");
-        groupNameField.setPadding(20,30,20,20);
+        groupNameField.setPadding(20, 30, 20, 20);
         groupNameField.setTextColor(Color.BLACK);
 
         groupNameField.setBackgroundColor(Color.WHITE);
